@@ -13,6 +13,7 @@ import 'package:hm_shop/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
+    // 确保 MyApp 是你在 main.dart 中定义的应用入口类名
     await tester.pumpWidget(const MyApp());
 
     // Verify that our counter starts at 0.
