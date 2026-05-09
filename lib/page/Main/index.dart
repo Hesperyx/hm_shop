@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: IndexedStack(
-        index: 1,
+        index: _currentIndex,
         children: _getChildren(),)),
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: true,
