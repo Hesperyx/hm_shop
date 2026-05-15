@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:hm_shop/api/home.dart';
 import 'package:hm_shop/components/Home/HmCategory.dart';
 import 'package:hm_shop/components/Home/HmMortList.dart';
 import 'package:hm_shop/components/Home/HmSlider.dart';
@@ -14,14 +15,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<BannerItem> _bannerList = [
-    BannerItem(id: "1", imgUrl: "https://imgs.catoi.cn/v2/HqcXGGX.jpeg"),
-    BannerItem(id: "2", imgUrl: "https://imgs.catoi.cn/v2/qgTdBMV.jpeg"),
-    BannerItem(id: "3", imgUrl: "https://imgs.catoi.cn/v2/yoxlaeN.jpeg")
+  List<BannerItem> _bannerList = [
+    // BannerItem(id: "1", imgUrl: "https://imgs.catoi.cn/v2/HqcXGGX.jpeg"),
+    // BannerItem(id: "2", imgUrl: "https://imgs.catoi.cn/v2/qgTdBMV.jpeg"),
+    // BannerItem(id: "3", imgUrl: "https://imgs.catoi.cn/v2/yoxlaeN.jpeg")
   ];
   List<Widget> _getScrollChildren() {
     return [
-      SliverToBoxAdapter(child: HmSlider(bannerList: _bannerList,)),
+      SliverToBoxAdapter(child: HmSlider(bannerList: _bannerList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(child: HmCategory()),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
@@ -41,8 +42,22 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      HmMortList()
+      HmMortList(),
     ];
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getBannerList();
+  }
+
+  void _getBannerList() async {
+    _bannerList = await getBannerListAPI();
+    setState(() {
+      
+    });
   }
 
   @override

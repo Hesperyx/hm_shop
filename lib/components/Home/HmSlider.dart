@@ -81,7 +81,9 @@ class _HmSliderState extends State<HmSlider> {
                 width: index == _currentIndex ? 40 : 20,
                 margin: EdgeInsets.symmetric(horizontal: 4),
                 decoration: BoxDecoration(
-                  color: index == _currentIndex ? Colors.white : Color.fromRGBO(0,0,0, 0.3),
+                  color: index == _currentIndex
+                      ? Colors.white
+                      : Color.fromRGBO(0, 0, 0, 0.3),
                   borderRadius: BorderRadius.circular(3),
                 ),
               ),
