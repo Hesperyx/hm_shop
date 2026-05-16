@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(child: HmCategory(categoryList: _categoryList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      SliverToBoxAdapter(child: HmSuggestion()),
+      SliverToBoxAdapter(child: HmSuggestion(recommendResult: _recommendResult)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(
         child: Padding(
@@ -46,13 +46,18 @@ class _HomeViewState extends State<HomeView> {
       HmMortList(),
     ];
   }
-
+  RecommendResult _recommendResult = RecommendResult(id: "", title: "", subTypes: []);
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _getBannerList();
     _getCategoryList();  
+    _getCategoryRecommend();
+  }
+  void _getCategoryRecommend() async {
+    _recommendResult = await getCategoryRecommendAPI();
+    setState(() {});
   }
 
   void _getBannerList() async {
