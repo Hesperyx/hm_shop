@@ -27,7 +27,9 @@ class _HomeViewState extends State<HomeView> {
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(child: HmCategory(categoryList: _categoryList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      SliverToBoxAdapter(child: HmSuggestion(recommendResult: _recommendResult)),
+      SliverToBoxAdapter(
+        child: HmSuggestion(recommendResult: _recommendResult),
+      ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(
         child: Padding(
@@ -35,9 +37,13 @@ class _HomeViewState extends State<HomeView> {
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              Expanded(child: HmHot()),
+              Expanded(
+                child: HmHot(result: _inVogueResult, type: "hot"),
+              ),
               SizedBox(width: 10),
-              Expanded(child: HmHot()),
+              Expanded(
+                child: HmHot(result: _oneStopResult, type: "step"),
+              ),
             ],
           ),
         ),
@@ -46,15 +52,48 @@ class _HomeViewState extends State<HomeView> {
       HmMortList(),
     ];
   }
-  RecommendResult _recommendResult = RecommendResult(id: "", title: "", subTypes: []);
+
+  RecommendResult _recommendResult = RecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+  // 热榜推荐
+  RecommendResult _inVogueResult = RecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+  // 一站式推荐
+  RecommendResult _oneStopResult = RecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+
+  // 获取热榜推荐列表
+  void _getInVogueList() async {
+    _inVogueResult = await getInVogueListAPI();
+    setState(() {});
+  }
+
+  // 获取一站式推荐列表
+  void _getOneStopList() async {
+    _oneStopResult = await getOneStopListAPI();
+    setState(() {});
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _getBannerList();
-    _getCategoryList();  
+    _getCategoryList();
     _getCategoryRecommend();
+    _getInVogueList();
+    _getOneStopList();
   }
+
   void _getCategoryRecommend() async {
     _recommendResult = await getCategoryRecommendAPI();
     setState(() {});

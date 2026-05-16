@@ -2,7 +2,7 @@ class BannerItem {
   String id;
   String imgUrl;
   BannerItem({required this.id, required this.imgUrl});
-  factory BannerItem.formJOSN(Map<String, dynamic> json) {
+  factory BannerItem.fromJSON(Map<String, dynamic> json) {
     return BannerItem(id: json["id"] ?? "", imgUrl: json["imgUrl"] ?? "");
   }
 }
@@ -20,14 +20,14 @@ class CategoryItem {
     this.children,
     this.goods,
   });
-  factory CategoryItem.formJOSN(Map<String, dynamic> json) {
+  factory CategoryItem.fromJSON(Map<String, dynamic> json) {
     return CategoryItem(
       id: json["id"] ?? "",
       name: json["name"] ?? "",
       picture: json["picture"] ?? "",
       children: json["children"] != null
           ? List<CategoryItem>.from(
-              json["children"].map((x) => CategoryItem.formJOSN(x)),
+              json["children"].map((x) => CategoryItem.fromJSON(x)),
             )
           : null,
       goods: json["goods"] != null ? List<dynamic>.from(json["goods"]) : null,
@@ -44,11 +44,11 @@ class RecommendResponse {
     required this.msg,
     required this.result,
   });
-  factory RecommendResponse.formJOSN(Map<String, dynamic> json) {
+  factory RecommendResponse.fromJSON(Map<String, dynamic> json) {
     return RecommendResponse(
       code: json["code"] ?? "",
       msg: json["msg"] ?? "",
-      result: RecommendResult.formJOSN(json["result"] ?? {}),
+      result: RecommendResult.fromJSON(json["result"] ?? {}),
     );
   }
 }
@@ -62,12 +62,12 @@ class RecommendResult {
     required this.title,
     required this.subTypes,
   });
-  factory RecommendResult.formJOSN(Map<String, dynamic> json) {
+  factory RecommendResult.fromJSON(Map<String, dynamic> json) {
     return RecommendResult(
       id: json["id"] ?? "",
       title: json["title"] ?? "",
       subTypes: json["subTypes"] != null
-          ? List<SubType>.from(json["subTypes"].map((x) => SubType.formJOSN(x)))
+          ? List<SubType>.from(json["subTypes"].map((x) => SubType.fromJSON(x)))
           : [],
     );
   }
@@ -78,11 +78,11 @@ class SubType {
   String title;
   GoodsItems goodsItems;
   SubType({required this.id, required this.title, required this.goodsItems});
-  factory SubType.formJOSN(Map<String, dynamic> json) {
+  factory SubType.fromJSON(Map<String, dynamic> json) {
     return SubType(
       id: json["id"] ?? "",
       title: json["title"] ?? "",
-      goodsItems: GoodsItems.formJOSN(json["goodsItems"] ?? {}),
+      goodsItems: GoodsItems.fromJSON(json["goodsItems"] ?? {}),
     );
   }
 }
@@ -92,7 +92,7 @@ class GoodsItems {
   int pageSize;
   int pages;
   int page;
-  List<GoodItem> items;
+  List<GoodsItem> items;
   GoodsItems({
     required this.counts,
     required this.pageSize,
@@ -100,27 +100,29 @@ class GoodsItems {
     required this.page,
     required this.items,
   });
-  factory GoodsItems.formJOSN(Map<String, dynamic> json) {
+  factory GoodsItems.fromJSON(Map<String, dynamic> json) {
     return GoodsItems(
       counts: json["counts"] ?? 0,
       pageSize: json["pageSize"] ?? 0,
       pages: json["pages"] ?? 0,
       page: json["page"] ?? 0,
       items: json["items"] != null
-          ? List<GoodItem>.from(json["items"].map((x) => GoodItem.formJOSN(x)))
+          ? List<GoodsItem>.from(
+              json["items"].map((x) => GoodsItem.fromJSON(x)),
+            )
           : [],
     );
   }
 }
 
-class GoodItem {
+class GoodsItem {
   String id;
   String name;
   String? desc;
   String price;
   String picture;
   int orderNum;
-  GoodItem({
+  GoodsItem({
     required this.id,
     required this.name,
     this.desc,
@@ -128,8 +130,8 @@ class GoodItem {
     required this.picture,
     required this.orderNum,
   });
-  factory GoodItem.formJOSN(Map<String, dynamic> json) {
-    return GoodItem(
+  factory GoodsItem.fromJSON(Map<String, dynamic> json) {
+    return GoodsItem(
       id: json["id"] ?? "",
       name: json["name"] ?? "",
       desc: json["desc"],

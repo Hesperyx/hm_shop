@@ -5,14 +5,14 @@ import 'package:hm_shop/viewmodels/home.dart';
 Future<List<BannerItem>> getBannerListAPI() async {
   final List<dynamic> data = await dioRequest.get(HttpConstants.BANNER_LIST);
   return data
-      .map((item) => BannerItem.formJOSN(item as Map<String, dynamic>))
+      .map((item) => BannerItem.fromJSON(item as Map<String, dynamic>))
       .toList();
 }
 
 Future<List<CategoryItem>> getCategoryListAPI() async {
   final List<dynamic> data = await dioRequest.get(HttpConstants.CATEGORY_LIST);
   return data
-      .map((item) => CategoryItem.formJOSN(item as Map<String, dynamic>))
+      .map((item) => CategoryItem.fromJSON(item as Map<String, dynamic>))
       .toList();
 }
 
@@ -21,5 +21,21 @@ Future<RecommendResult> getCategoryRecommendAPI() async {
   final Map<String, dynamic> data = await dioRequest.get(
     HttpConstants.PRODUCT_LIST,
   );
-  return RecommendResult.formJOSN(data);
+  return RecommendResult.fromJSON(data);
+}
+
+// 热榜推荐
+Future<RecommendResult> getInVogueListAPI() async {
+  // 返回请求
+  return RecommendResult.fromJSON(
+    await dioRequest.get(HttpConstants.IN_VOGUE_LIST),
+  );
+}
+
+// 一站式推荐
+Future<RecommendResult> getOneStopListAPI() async {
+  // 返回请求
+  return RecommendResult.fromJSON(
+    await dioRequest.get(HttpConstants.ONE_STOP_LIST),
+  );
 }

@@ -10,7 +10,7 @@ class HmSuggestion extends StatefulWidget {
 }
 
 class _HmSuggestionState extends State<HmSuggestion> {
-  List<GoodItem> _getDisplayItem() {
+  List<GoodsItem> _getDisplayItem() {
     if (widget.recommendResult.subTypes.isEmpty) {
       return [];
     }
@@ -58,7 +58,7 @@ class _HmSuggestionState extends State<HmSuggestion> {
 
   @override
   Widget build(BuildContext context) {
-    final List<GoodItem> items = _getDisplayItem();
+    final List<GoodsItem> items = _getDisplayItem();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
