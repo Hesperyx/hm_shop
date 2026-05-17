@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      HmMortList(),
+      HmMoreList(recommendList: _recommendList), // 无限滚动列表
     ];
   }
 
@@ -70,7 +70,13 @@ class _HomeViewState extends State<HomeView> {
     title: "",
     subTypes: [],
   );
+  List<GoodDetailItem> _recommendList = [];
 
+  // 获取推荐列表
+  void _getRecommendList() async {
+    _recommendList = await getRecommendListAPI({"limit": 10});
+    setState(() {});
+  }
   // 获取热榜推荐列表
   void _getInVogueList() async {
     _inVogueResult = await getInVogueListAPI();
@@ -92,6 +98,7 @@ class _HomeViewState extends State<HomeView> {
     _getCategoryRecommend();
     _getInVogueList();
     _getOneStopList();
+    _getRecommendList();
   }
 
   void _getCategoryRecommend() async {
